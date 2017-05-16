@@ -1,15 +1,18 @@
-import key from './key.js'
-import cleaner from './helpers/cleaner'
+import MovieApi from '../helpers/movieApi'
 
-export const getMovies = () => {
-  const nowPlaying = fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=${key}`)
-    .then(response => response.json())
-    .then(movies => cleaner(movies))
-    .catch('we need movies')
-  )
+const MoviesClass = new MovieApi()
 
+export const loadMovies = () => {
+  return (dispatch) =>{
+    return MoviesClass.getMovies()
+      .then((movies) => dispatch(movieSuccess(movies)))
+      .catch('error with getMovies at actions.js')
+  }
+}
+
+export const movieSuccess = (movies) =>{
   return {
-    type: 'GET_MOVIES',
-    movies: nowPlaying
+    type: 'MOVIE_SUCCESS',
+    movies
   }
 }
