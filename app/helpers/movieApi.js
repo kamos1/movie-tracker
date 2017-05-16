@@ -1,5 +1,5 @@
 import { cleaner } from '../helpers/cleaner'
-import key from '../key.js'
+import key from './key.js'
 
 export default class MovieApi {
   getMovies(){
