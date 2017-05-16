@@ -71,7 +71,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	_reactDom2.default.render(_app2.default, document.getElementById('main'));
+	_reactDom2.default.render(_react2.default.createElement(_app2.default, null), document.getElementById('main'));
 
 /***/ }),
 /* 2 */
@@ -21881,7 +21881,21 @@
 	          null,
 	          'Movie Watcher'
 	        ),
-	        this.props.children
+	        _react2.default.createElement(
+	          'h1',
+	          null,
+	          'Movie Watcher'
+	        ),
+	        _react2.default.createElement(
+	          'h1',
+	          null,
+	          'Movie Watcher'
+	        ),
+	        _react2.default.createElement(
+	          'h1',
+	          null,
+	          'Movie Watche  r'
+	        )
 	      );
 	    }
 	  }]);
