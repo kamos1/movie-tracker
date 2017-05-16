@@ -1,6 +1,6 @@
-export const getMovies = (state={}, action) => {
+export const moviesReducer = (state={}, action) => {
   switch(action.type) {
-    case 'GET_MOVIES':
+    case 'MOVIE_SUCCESS':
       return Object.assign({}, action.movies)
     default:
       return state;
