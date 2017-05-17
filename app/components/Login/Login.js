@@ -9,6 +9,19 @@ export default class Login extends Component {
     }
   }
 
+  verifyLogin(user) {
+    const keys = Object.keys(this.props.users)
+    const foundEmail = keys.find((email) => {
+      email === this.state.email
+    })
+    if(this.props.users[foundEmail].password === this.state.password){
+      this.props.handleSubmit(this.state)
+    } else {
+      alert('Your password is invalid')
+    }
+
+  }
+
   render() {
     const { handleSubmit } = this.props
     return (
@@ -23,7 +36,7 @@ export default class Login extends Component {
           placeholder='Password'/>
         <button onClick={(e) => {
           e.preventDefault()
-          handleSubmit(this.state)
+          this.verifyLogin(this.state)
         }}>
         Submit</button>
       </form>

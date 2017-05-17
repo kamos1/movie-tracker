@@ -4,7 +4,8 @@ import Login from '../Login/Login'
 
 const mapStateToProps = (state) => {
   return {
-    user: state.loginReducer
+    user: state.loginReducer,
+    users: state.userReducer
   }
 }
 
