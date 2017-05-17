@@ -2,6 +2,7 @@ import { Route, Link, Switch } from 'react-router-dom';
 import React, { Component } from 'react';
 import MovieContainer from './containers/MovieContainer';
 import LoginContainer from './containers/LoginContainer';
+import CreateUserContainer from './containers/CreateUserContainer';
 
 export default class App extends Component {
   constructor() {
@@ -20,6 +21,11 @@ export default class App extends Component {
         <Route exact path='/login' render={ (location, history, match) => {
           return (
             <LoginContainer />
+          )
+        }} />
+        <Route exact path='/signup' render={ (location, history, match) => {
+          return (
+            <CreateUserContainer />
           )
         }} />
       </div>

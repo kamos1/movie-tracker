@@ -17,10 +17,16 @@ export const movieSuccess = (movies) =>{
   }
 }
 
-export const userLogin = (email, password) => {
+export const userLogin = (user) => {
   return {
     type: 'USER_LOGIN_SUCCESS',
-    email,
-    password
+    user
+  }
+}
+
+export const createUser = (user) => {
+  return {
+    type: 'CREATE_USER',
+    user
   }
 }

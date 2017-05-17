@@ -1,18 +1,31 @@
 import React, { Component } from 'react'
 
-export default class Login extends Component {
+export default class CreateUser extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      name: '',
       email: '',
       password: ''
     }
   }
 
+  verifyUser(obj) {
+    const keys = Object.keys(this.props.users)
+    if(keys.includes(this.state.email)) {
+      alert('Email has already been used')
+    }
+    this.props.handleSubmit(this.state)
+  }
+
+
   render() {
-    const { handleSubmit } = this.props
     return (
       <form>
+        <input
+          type='text'
+          onChange={(e) => this.setState({name: e.target.value})}
+          placeholder='Name'/>
         <input
           type='text'
           onChange={(e) => this.setState({email: e.target.value})}
@@ -23,7 +36,7 @@ export default class Login extends Component {
           placeholder='Password'/>
         <button onClick={(e) => {
           e.preventDefault()
-          handleSubmit(this.state)
+          this.verifyUser(this.state)
         }}>
         Submit</button>
       </form>
