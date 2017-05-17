@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 
-
 export default class Login extends Component {
   constructor(props) {
     super(props)
@@ -9,12 +8,24 @@ export default class Login extends Component {
       password: ''
     }
   }
+
   render() {
+    const { handleSubmit } = this.props
     return (
       <form>
-        <input type='text' placeholder='Email'/>
-        <input type='text' placeholder='Password'/>
-        <button>Submit</button>
+        <input
+          type='text'
+          onChange={(e) => this.setState({email: e.target.value})}
+          placeholder='Email'/>
+        <input
+          type='text'
+          onChange={(e) => this.setState({password: e.target.value})}
+          placeholder='Password'/>
+        <button onClick={(e) => {
+          e.preventDefault()
+          handleSubmit(this.state)
+        }}>
+        Submit</button>
       </form>
     )
   }
