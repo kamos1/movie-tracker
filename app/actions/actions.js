@@ -23,3 +23,10 @@ export const userLogin = (user) => {
     user
   }
 }
+
+export const createUser = (user) => {
+  return {
+    type: 'CREATE_USER',
+    user
+  }
+}
