@@ -1,7 +1,6 @@
 import { createUser } from '../../actions/actions'
 import { connect } from 'react-redux'
 import CreateUser from '../CreateUser/CreateUser'
-
 const mapStateToProps = (state) => {
   return {
     users: state.userReducer
