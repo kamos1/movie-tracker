@@ -18,3 +18,8 @@ export const createUser = user => ({
   type: 'CREATE_USER',
   user,
 });
+
+export const userLogout = user => ({
+  typer: 'USER_LOGOUT_SUCCESS',
+  user
+})

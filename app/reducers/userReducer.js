@@ -4,6 +4,8 @@ export const userReducer = (state = {}, action) => {
       return Object.assign({}, state, { [action.user.email]: action.user });
     case 'USER_LOGIN_SUCCESS':
       return Object.assign({}, state, { [action.user.email]: action.user });
+    case 'USER_LOGOUT_SUCCESS':
+      return {};
     default:
       return state;
   }
