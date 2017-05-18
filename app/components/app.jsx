@@ -14,8 +14,8 @@ export default class App extends Component {
     return (
       <div>
         <h1>Movie Watcher</h1>
-        <Route exact path="/" render={ () => (
-          <MovieContainer />
+        <Route exact path="/" render={ ({ history }) => (
+          <MovieContainer history={history}/>
         )} />
         <Route exact path='/login' render={ ({ history }) => (
           <LoginContainer history={history}/>
