@@ -8,9 +8,12 @@ export const Card = (props) => {
     <div className="card-box">
       <img src={ poster } />
 
+      <h2 className="movie-title">{title}</h2>
+
       <article className="movie-details">
         <p>{ synopsis }</p>
       </article>
+
       <button className="fav-btn"
               onClick={ () => {favoritesClick(user, history)} }>add <span className="title-btn">{ title }</span> to favorites</button>
     </div>
