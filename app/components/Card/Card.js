@@ -2,8 +2,7 @@ import React from 'react';
 // import './Card.css';
 
 export const Card = (props) => {
-  const { title, synopsis, poster, user, history, handleFavorites, favorites, movies } = props;
-  console.log(handleFavorites, 'in card');
+  const { title, synopsis, poster, user, history, handleFavorites, handleRemove, favorites, movies } = props;
 
   return (
     <div className="card-box">
@@ -16,29 +15,20 @@ export const Card = (props) => {
       </article>
 
       <button className="fav-btn"
-              onClick={ () => {favoritesClick(user, history, handleFavorites, favorites, title, movies)} }>add <span className="title-btn">{ title }</span> to favorites</button>
+              onClick={ () => { favoritesClick(user, history, handleFavorites, handleRemove, favorites, title, movies); } }>add <span className="title-btn">{ title }</span> to favorites</button>
     </div>
   );
 };
 
+const favoritesClick = (user, history, handleFavorites, handleRemove, favorites, title, movies) => {
+  const userArray = Object.keys(user);
+  const favKeys = Object.keys(favorites);
 
-//NOTE: Action/reducer needs to be created for adding favorited cards to favorites array
-//NOTE: Move to helper folder??? Also use function from previous projects to toggle css and/or use store prop
-//NOTE: SignOut button should have action/reducer to reset user back to empty object
-
-const favoritesClick = (user, history, handleFavorites, favorites, title, movies) => {
-  let userArray = Object.keys(user)
-  let favKeys = Object.keys(favorites)
-  console.log(movies[title]);
-  if(!userArray.length) {
-    history.replace('/signup')
-  }
-
-  if(favKeys.includes(title)) {
-    alert('movie is already in favorites')
+  if (!userArray.length) {
+    history.replace('/signup');
+  } else if (favKeys.includes(title)) {
+    handleRemove(movies[title]);
   } else {
-    handleFavorites(movies[title])
+    handleFavorites(movies[title]);
   }
-
-
-}
+};
