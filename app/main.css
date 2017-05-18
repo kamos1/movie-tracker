@@ -41,16 +41,17 @@
   flex-direction: column;
   justify-content: center;
   width: 90%;
+  height: 200px;
   margin-right: auto;
   margin-left: auto;
 }
 
-.movie-details h2 {
+.movie-title {
   font-family: 'Crimson Text', serif;
+  height: 45px;
 }
 
 .movie-details p {
-  height: 200px;
   font-size: 14px;
   font-family: 'Alegreya', serif;
 }
@@ -60,7 +61,7 @@
   background-color: rgba(212, 212, 212, 0.3);
   box-shadow: 0 0 16px -2px #538de4;
   border: none;
-  margin-bottom: 5px;
+  margin-bottom: 15px;
   width: 90%;
   font-size: 10px;
 }
