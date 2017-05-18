@@ -4,8 +4,8 @@ import { addToFavorites, removeFavorite } from '../../actions/actions';
 
 
 const mapStateToProps = state => ({
-  movies: state.moviesReducer,
   user: state.userReducer,
+  movies: state.favoritesReducer,
   favorites: state.favoritesReducer,
 });
 

@@ -21,10 +21,20 @@ export const createUser = user => ({
 
 export const userLogout = user => ({
   type: 'USER_LOGOUT_SUCCESS',
-  user
-})
+  user,
+});
 
 export const addToFavorites = movie => ({
   type: 'ADD_TO_FAVORITES',
-  movie
-})
+  movie,
+});
+
+export const removeFavorite = movie => ({
+  type: 'REMOVE_FAVORITE',
+  movie,
+});
+
+export const showFavorites = movies => ({
+  type: 'SHOW_FAVORITES',
+  movies,
+});

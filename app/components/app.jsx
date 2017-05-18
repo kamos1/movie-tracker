@@ -4,7 +4,9 @@ import React, { Component } from 'react';
 import MovieContainer from './containers/MovieContainer';
 import LoginContainer from './containers/LoginContainer';
 import CreateUser from './CreateUser/CreateUser';
-import NavBarContainer from './containers/NavBarContainer'
+import NavBarContainer from './containers/NavBarContainer';
+import FavoritesContainer from './containers/FavoritesContainer';
+
 
 export default class App extends Component {
 
@@ -21,6 +23,9 @@ export default class App extends Component {
         )} />
         <Route exact path='/signup' render={ ({ history }) => (
             <CreateUser history={history} />
+          )} />
+        <Route exact path='/favorites' render={ ({ history }) => (
+            <FavoritesContainer history={history} />
           )} />
       </div>
     );
