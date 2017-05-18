@@ -1,0 +1,8 @@
+.card-box {
+  border: 1px solid red;
+  display: flex;
+  margin-right: auto;
+  margin-left: auto;
+  flex-direction: column;
+  width: 33.3333%;
+}

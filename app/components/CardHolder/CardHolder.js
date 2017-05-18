@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card } from '../Card/Card';
+// import './CardHolder.css';
 
 export const CardHolder = (props) => {
   const { movies } = props;
@@ -8,7 +9,7 @@ export const CardHolder = (props) => {
     ));
 
   return (
-    <div>
+    <div className="card-holder">
       {moviesArray}
     </div>
   );
