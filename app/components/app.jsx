@@ -4,15 +4,14 @@ import React, { Component } from 'react';
 import MovieContainer from './containers/MovieContainer';
 import LoginContainer from './containers/LoginContainer';
 import CreateUser from './CreateUser/CreateUser';
+import { NavBar } from './NavBar/NavBar'
 
 export default class App extends Component {
-  constructor() {
-    super();
-  }
 
   render() {
     return (
       <div>
+        <NavBar />
         <h1>Movie Watcher</h1>
         <Route exact path="/" render={ ({ history }) => (
           <MovieContainer history={history}/>
