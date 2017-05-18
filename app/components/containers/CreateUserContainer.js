@@ -1,18 +1,14 @@
-import { createUser } from '../../actions/actions'
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
+import { createUser } from '../../actions/actions';
 
-const mapStateToProps = (state) => {
-  return {
-    users: state.userReducer
-  }
-}
+const mapStateToProps = state => ({
+  users: state.userReducer,
+});
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    handleCreateUser: (user) => {
-      dispatch(createUser(user))
-    }
-  }
-}
+const mapDispatchToProps = dispatch => ({
+  handleCreateUser: (user) => {
+    dispatch(createUser(user));
+  },
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)
+export default connect(mapStateToProps, mapDispatchToProps);

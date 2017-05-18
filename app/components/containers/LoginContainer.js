@@ -1,19 +1,15 @@
-import { userLogin } from '../../actions/actions'
-import { connect } from 'react-redux'
-import Login from '../Login/Login'
+import { connect } from 'react-redux';
+import { userLogin } from '../../actions/actions';
+import Login from '../Login/Login';
 
-const mapStateToProps = (state) => {
-  return {
-    users: state.userReducer
-  }
-}
+const mapStateToProps = state => ({
+  users: state.userReducer,
+});
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    handleSubmit: (email, password) => {
-      dispatch(userLogin(email, password))
-    }
-  }
-}
+const mapDispatchToProps = dispatch => ({
+  handleSubmit: (email, password) => {
+    dispatch(userLogin(email, password));
+  },
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login)
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

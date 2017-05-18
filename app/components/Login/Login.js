@@ -1,29 +1,29 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
 export default class Login extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       email: '',
-      password: ''
-    }
+      password: '',
+    };
   }
 
-  verifyLogin(user) {
-    fetch('/api/users/',{
-      method: 'GET'
+  verifyLogin(state) {
+    fetch('/api/users/', {
+      method: 'GET',
     })
-      .then((res) => res.json())
+      .then(res => res.json())
       .then((users) => {
-        const foundUser = users.data.find(user => user.email === this.state.email)
-          if (foundUser.password === this.state.password) {
-            this.props.handleSubmit(this.state)
-            this.props.history.replace('/')
-          } else {
-            alert("Email and Password do not match")
-          }
+        const foundUser = users.data.find(user => user.email === this.state.email);
+        if (foundUser.password === this.state.password) {
+          this.props.handleSubmit(this.state);
+          this.props.history.replace('/');
+        } else {
+          alert('Email and Password do not match');
+        }
       })
-      .catch('error posting to api')
+      .catch('error posting to api');
   }
 
   render() {
@@ -31,18 +31,18 @@ export default class Login extends Component {
       <form>
         <input
           type='text'
-          onChange={(e) => this.setState({email: e.target.value})}
+          onChange={e => this.setState({ email: e.target.value })}
           placeholder='Email'/>
         <input
           type='text'
-          onChange={(e) => this.setState({password: e.target.value})}
+          onChange={e => this.setState({ password: e.target.value })}
           placeholder='Password'/>
         <button onClick={(e) => {
-          e.preventDefault()
-          this.verifyLogin(this.state)
+          e.preventDefault();
+          this.verifyLogin(this.state);
         }}>
         Submit</button>
       </form>
-    )
+    );
   }
 }

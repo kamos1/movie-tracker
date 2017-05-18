@@ -14,22 +14,16 @@ export default class App extends Component {
     return (
       <div>
         <h1>Movie Watcher</h1>
-        <Route exact path="/" render={ (location, history, match) => {
-          return (
-            <MovieContainer />
-          )
-        }} />
-        <Route exact path='/login' render={ ({location, history, match}) => {
-          return (
-            <LoginContainer history={history}/>
-          )
-        }} />
-        <Route exact path='/signup' render={ ({location, history, match}) => {
-          return (
+        <Route exact path="/" render={ () => (
+          <MovieContainer />
+        )} />
+        <Route exact path='/login' render={ ({ history }) => (
+          <LoginContainer history={history}/>
+        )} />
+        <Route exact path='/signup' render={ ({ history }) => (
             <CreateUser history={history} />
-          )
-        }} />
+          )} />
       </div>
-    )
+    );
   }
 }
