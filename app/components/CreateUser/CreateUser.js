@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
+import CreateUserContainer from '../containers/CreateUserContainer'
 
-export default class CreateUser extends Component {
+class CreateUser extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -12,12 +13,12 @@ export default class CreateUser extends Component {
 
   verifyUser(obj) {
     const keys = Object.keys(this.props.users)
-    
+
     if(keys.includes(this.state.email)) {
       alert('Email has already been used')
     }
 
-    this.props.handleSubmit(this.state)
+    this.props.handleCreateUser(this.state)
     fetch('/api/users/new',{
       method: 'POST',
       body: JSON.stringify({'name': this.state.name, 'email': this.state.email, 'password': this.state.password}),
@@ -54,3 +55,5 @@ export default class CreateUser extends Component {
     )
   }
 }
+
+export default CreateUserContainer(CreateUser)

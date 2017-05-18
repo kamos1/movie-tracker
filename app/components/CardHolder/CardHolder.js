@@ -2,8 +2,6 @@ import React from 'react';
 import { Card } from '../Card/Card';
 
 export const CardHolder = (props) => {
-  console.log(props);
-
   const { movies } = props
   const moviesArray = Object.keys(movies).map( (movie) => {
     return (
