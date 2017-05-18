@@ -1,7 +1,5 @@
 import MovieApi from '../helpers/movieApi'
 
-// const MoviesClass = new MovieApi()
-
 export const loadMovies = () => {
   return (dispatch) =>{
     return MovieApi.getMovies()

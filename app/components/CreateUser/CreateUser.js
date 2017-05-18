@@ -12,9 +12,11 @@ export default class CreateUser extends Component {
 
   verifyUser(obj) {
     const keys = Object.keys(this.props.users)
+    
     if(keys.includes(this.state.email)) {
       alert('Email has already been used')
     }
+
     this.props.handleSubmit(this.state)
     fetch('/api/users/new',{
       method: 'POST',
@@ -23,6 +25,8 @@ export default class CreateUser extends Component {
     })
       .then((res) => console.log(res))
       .catch('error posting to api')
+
+      this.props.history.replace('/')
   }
 
 

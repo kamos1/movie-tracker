@@ -1,5 +1,6 @@
 import { Route, Link, Switch } from 'react-router-dom';
 import React, { Component } from 'react';
+
 import MovieContainer from './containers/MovieContainer';
 import LoginContainer from './containers/LoginContainer';
 import CreateUserContainer from './containers/CreateUserContainer';
@@ -18,14 +19,14 @@ export default class App extends Component {
             <MovieContainer />
           )
         }} />
-        <Route exact path='/login' render={ (location, history, match) => {
+        <Route exact path='/login' render={ ({location, history, match}) => {
           return (
-            <LoginContainer />
+            <LoginContainer history={history}/>
           )
         }} />
-        <Route exact path='/signup' render={ (location, history, match) => {
+        <Route exact path='/signup' render={ ({location, history, match}) => {
           return (
-            <CreateUserContainer />
+            <CreateUserContainer history={history} />
           )
         }} />
       </div>
