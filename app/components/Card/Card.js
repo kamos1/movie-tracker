@@ -1,7 +1,7 @@
 import React from 'react';
 
 export const Card = (props) => {
-  const { title, synopsis, poster, id } = props
+  const { title, synopsis, poster } = props;
 
   return (
     <div>
@@ -9,5 +9,5 @@ export const Card = (props) => {
       <h2>Title: {title}</h2>
       <p>{ synopsis }</p>
     </div>
-  )
-}
+  );
+};

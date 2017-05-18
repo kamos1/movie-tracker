@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 
 import MovieContainer from './containers/MovieContainer';
 import LoginContainer from './containers/LoginContainer';
-import CreateUserContainer from './containers/CreateUserContainer';
+import CreateUser from './CreateUser/CreateUser';
 
 export default class App extends Component {
   constructor() {
@@ -14,22 +14,16 @@ export default class App extends Component {
     return (
       <div>
         <h1>Movie Watcher</h1>
-        <Route exact path="/" render={ (location, history, match) => {
-          return (
-            <MovieContainer />
-          )
-        }} />
-        <Route exact path='/login' render={ ({location, history, match}) => {
-          return (
-            <LoginContainer history={history}/>
-          )
-        }} />
-        <Route exact path='/signup' render={ ({location, history, match}) => {
-          return (
-            <CreateUserContainer history={history} />
-          )
-        }} />
+        <Route exact path="/" render={ () => (
+          <MovieContainer />
+        )} />
+        <Route exact path='/login' render={ ({ history }) => (
+          <LoginContainer history={history}/>
+        )} />
+        <Route exact path='/signup' render={ ({ history }) => (
+            <CreateUser history={history} />
+          )} />
       </div>
-    )
+    );
   }
 }
