@@ -10,20 +10,23 @@ export default class Login extends Component {
   }
 
   verifyLogin(user) {
-    const keys = Object.keys(this.props.users)
-    const foundEmail = keys.find((email) => {
-      email === this.state.email
+    fetch('/api/users/',{
+      method: 'GET'
     })
-    if(this.props.users[foundEmail].password === this.state.password){
-      this.props.handleSubmit(this.state)
-    } else {
-      alert('Your password is invalid')
-    }
-
+      .then((res) => res.json())
+      .then((users) => {
+        const foundUser = users.data.find(user => user.email === this.state.email)
+          if (foundUser.password === this.state.password) {
+            this.props.handleSubmit(this.state)
+            this.props.history.replace('/')
+          } else {
+            this.props.history.replace('/signup')
+          }
+      })
+      .catch('error posting to api')
   }
 
   render() {
-    const { handleSubmit } = this.props
     return (
       <form>
         <input
