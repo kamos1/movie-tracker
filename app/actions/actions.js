@@ -33,3 +33,8 @@ export const removeFavorite = movie => ({
   type: 'REMOVE_FAVORITE',
   movie,
 });
+
+export const showFavorites = movies => ({
+  type: 'SHOW_FAVORITES',
+  movies,
+});

@@ -9,24 +9,24 @@ export const NavBar = (props) => {
       <NavLink activeClassName='selected' to='/'>Home</NavLink>
       { userStatus(user, handleLogout) }
       <NavLink activeClassName='selected' to='/signup'>Signup</NavLink>
+      <NavLink activeClassName='selected' to='/favorites'>Favorites</NavLink>
     </div>
   );
-}
+};
 
 const userStatus = (user, handleLogout) => {
-  let userArray = Object.keys(user)
+  const userArray = Object.keys(user);
 
   if (!userArray.length) {
     return (
       <NavLink activeClassName='selected' to='/login'>Login</NavLink>
-    )
+    );
   }
-  else {
-    return (
+
+  return (
      <NavLink activeClassName="selected"
               to='/login'
-              onClick={ () => {handleLogout()} }>Logout</NavLink>
+              onClick={ () => { handleLogout(); } }>Logout</NavLink>
 
-   )
-  }
-}
+  );
+};
