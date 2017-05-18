@@ -1,7 +1,74 @@
+
 #main h1 {
-  background-color: blue;
+  background-color: green;
 }
 
 #main {
   text-align: center;
+}
+
+.card-holder {
+  background-color: rgba(212, 212, 212, 0.3);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.card-box {
+  box-shadow: 0 0 20px -2px #545454;
+  border-radius: 3px;
+  margin-right: 5px;
+  margin-left: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 250px;
+}
+
+.card-box:hover {
+  background-color: rgba(51, 187, 218, 0.44);
+}
+
+.card-box img {
+  height: 300px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 5px;
+}
+
+.movie-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 90%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.movie-details h2 {
+  font-family: 'Crimson Text', serif;
+}
+
+.movie-details p {
+  height: 200px;
+  font-size: 14px;
+  font-family: 'Alegreya', serif;
+}
+
+.fav-btn {
+  border-radius: 25px;
+  background-color: rgba(212, 212, 212, 0.3);
+  box-shadow: 0 0 16px -2px #538de4;
+  border: none;
+  margin-bottom: 5px;
+  width: 90%;
+  font-size: 10px;
+}
+
+.title-btn {
+  color: #ea2c55;
+}
+
+.fav-btn:hover {
+  box-shadow: 0 0 16px -2px #ea2c55;
 }

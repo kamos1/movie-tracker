@@ -1,14 +1,18 @@
 import React from 'react';
+// import './Card.css';
 
 export const Card = (props) => {
   const { title, synopsis, poster, user, history } = props;
 
   return (
-    <div>
+    <div className="card-box">
       <img src={ poster } />
-      <h2>Title: {title}</h2>
-      <button onClick={ () => {favoritesClick(user, history)} }>Favorites</button>
-      <p>{ synopsis }</p>
+
+      <article className="movie-details">
+        <p>{ synopsis }</p>
+      </article>
+      <button className="fav-btn"
+              onClick={ () => {favoritesClick(user, history)} }>add <span className="title-btn">{ title }</span> to favorites</button>
     </div>
   );
 };
