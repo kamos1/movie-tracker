@@ -1,14 +1,19 @@
 import { connect } from 'react-redux';
-import { userLogin } from '../../actions/actions';
+import { userLogin, addToFavorites, removeFavorite } from '../../actions/actions';
 import Login from '../Login/Login';
 
+
 const mapStateToProps = state => ({
+  movies: state.moviesReducer,
   users: state.userReducer,
 });
 
 const mapDispatchToProps = dispatch => ({
-  handleSubmit: (email, password) => {
-    dispatch(userLogin(email, password));
+  handleSubmit: (email, password, id) => {
+    dispatch(userLogin(email, password, id));
+  },
+  handleFavorites: (movie) => {
+    dispatch(addToFavorites(movie));
   },
 });
 
