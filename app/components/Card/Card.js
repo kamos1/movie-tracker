@@ -1,13 +1,16 @@
 import React from 'react';
+// import './Card.css';
 
 export const Card = (props) => {
   const { title, synopsis, poster } = props;
 
   return (
-    <div>
+    <div className="card-box">
       <img src={ poster } />
-      <h2>Title: {title}</h2>
-      <p>{ synopsis }</p>
+      <article className="movie-details">
+        <p>{ synopsis }</p>
+      </article>
+      <button className="fav-btn">add <span className="title-btn">{ title }</span> to favorites</button>
     </div>
   );
 };
