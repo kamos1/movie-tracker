@@ -20,7 +20,7 @@ export default class Login extends Component {
             this.props.handleSubmit(this.state)
             this.props.history.replace('/')
           } else {
-            this.props.history.replace('/signup')
+            alert("Email and Password do not match")
           }
       })
       .catch('error posting to api')
