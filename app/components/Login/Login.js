@@ -25,7 +25,6 @@ export default class Login extends Component {
         if (foundUser.password === this.state.password) {
           this.props.handleSubmit(this.state);
           this.props.history.replace('/');
-
           fetch(`api/users/${foundUser.id}/favorites`, {
             method: 'GET',
           })
@@ -34,10 +33,22 @@ export default class Login extends Component {
               if(!favs.data.length){
                 return {}
               } else {
-                // let favsArray = Object.keys(favs.data)
-                //
-                // Object.assign({}, favsArray[movie.title])
-                this.props.handleFavorites(favs.data)
+                const favsArray = Object.keys(favs.data)
+                const favsData = favsArray.reduce((acc, movie) =>{
+                  if(!acc[movie.title]){
+                    console.log(favs.data[movie].poster_path);
+                    acc[favs.data[movie].title] = {
+                      title: favs.data[movie].title,
+                      overview: favs.data[movie].overview,
+                      poster_path: favs.data[movie].poster_path,
+                      movie_id: favs.data[movie].id,
+                      release_date: favs.data[movie].release_date,
+                      vote_average: favs.data[movie].vote_average,
+                    }
+                  }
+                  return acc
+                }, {})
+                this.props.handleAllFavorites(favsData)
               }
             })
             .catch(err => console.log('THIS IS FUCKING ERROR'))

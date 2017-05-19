@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { userLogin, addToFavorites, removeFavorite } from '../../actions/actions';
+import { userLogin, addToFavorites, removeFavorite, addAllFavorites } from '../../actions/actions';
 import Login from '../Login/Login';
 
 
@@ -14,6 +14,9 @@ const mapDispatchToProps = dispatch => ({
   },
   handleFavorites: (movie) => {
     dispatch(addToFavorites(movie));
+  },
+  handleAllFavorites: (movie) => {
+    dispatch(addAllFavorites(movie));
   },
 });
 
