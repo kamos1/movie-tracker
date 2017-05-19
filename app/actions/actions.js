@@ -38,3 +38,8 @@ export const showFavorites = movies => ({
   type: 'SHOW_FAVORITES',
   movies,
 });
+
+export const addAllFavorites = movies => ({
+  type: 'ADD_ALL_FAVORITES',
+  movies,
+});

@@ -5,7 +5,7 @@ import { Card } from '../Card/Card';
 export const CardHolder = (props) => {
   const { movies, user, history, handleFavorites, handleRemove, favorites } = props;
   const moviesArray = Object.keys(movies).map(movie => (
-      <Card key={ movies[movie].id }
+      <Card key={ movies[movie].movie_id }
             history={ history }
             user={ user }
             favorites={favorites}
