@@ -9,9 +9,8 @@ export default class Login extends Component {
       id: '',
     };
   }
-  
+
   verifyLogin(state) {
-    let user;
     fetch('/api/users/', {
       method: 'GET',
     })
@@ -35,6 +34,8 @@ export default class Login extends Component {
         .then((favs) => {
           this.getFavorites(favs)
         })
+      } else {
+        alert('Wrong Password')
       }
     }
 
