@@ -2,18 +2,16 @@ import React from 'react';
 // import './Card.css';
 
 export const Card = (props) => {
-  const { title, overview, poster_path, user, history, handleFavorites, handleRemove, favorites, movies } = props;
+  const { title, overview, poster_path, user, history,
+          handleFavorites, handleRemove, favorites, movies } = props;
 
   return (
     <div className="card-box">
       <img src={ poster_path } />
-
       <h2 className="movie-title">{title}</h2>
-
       <article className="movie-details">
         <p>{ overview }</p>
       </article>
-
       <button className="fav-btn"
               onClick={ () => { favoritesClick(user, history, handleFavorites, handleRemove, favorites, title, movies); } }>add <span className="title-btn">{ title }</span> to favorites</button>
     </div>
@@ -24,9 +22,7 @@ const favoritesClick = (user, history, handleFavorites, handleRemove, favorites,
   const userArray = Object.keys(user);
   const favKeys = Object.keys(favorites);
 
-  console.log(userArray[0]);
-
-  const postData = {
+  const postNewFavorite = {
     movie_id: movies[title].movie_id,
     user_id: user[userArray[0]].id,
     title: movies[title].title,
@@ -36,15 +32,24 @@ const favoritesClick = (user, history, handleFavorites, handleRemove, favorites,
     overview: movies[title].overview,
   };
 
+  const postRemoveFavorite = {
+    user_id: user[userArray[0]].id,
+    movie_id: movies[title].movie_id,
+  };
+
   if (!userArray.length) {
     history.replace('/signup');
   } else if (favKeys.includes(title)) {
+    fetch(`/api/users/${user[userArray[0]].id}/favorites/${movies[title].movie_id}`, {
+      method: 'DELETE',
+      body: JSON.stringify(postRemoveFavorite),
+      headers: { 'Content-Type': 'application/json' },
+    });
     handleRemove(movies[title]);
   } else {
-    console.log(postData);
     fetch('api/users/favorites/new', {
       method: 'POST',
-      body: JSON.stringify(postData),
+      body: JSON.stringify(postNewFavorite),
       headers: { 'Content-Type': 'application/json' },
     })
       .then(resp => resp.json());
