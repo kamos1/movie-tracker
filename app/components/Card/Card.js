@@ -23,9 +23,8 @@ const buttonDisplay = (props) => {
 
   if (!Object.keys(user).length) {
     return (
-      <div className = "button-div">
-        Login to Save a Favorite
-      </div>
+      <button className="fav-btn"
+              onClick={ () => { history.replace('/signup'); } }>add <span className="title-btn">{ title }</span> to favorites</button>
     );
   }
   return (
