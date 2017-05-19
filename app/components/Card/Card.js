@@ -12,15 +12,32 @@ export const Card = (props) => {
       <article className="movie-details">
         <p>{ overview }</p>
       </article>
+      {buttonDisplay(props)}
+    </div>
+  );
+};
+
+const buttonDisplay = (props) => {
+  const { title, overview, poster_path, user, history,
+          handleFavorites, handleRemove, favorites, movies } = props;
+
+  if (!Object.keys(user).length) {
+    return (
+      <div className = "button-div">
+        Login to Save a Favorite
+      </div>
+    );
+  }
+  return (
       <button className="fav-btn"
               onClick={ () => { favoritesClick(user, history, handleFavorites, handleRemove, favorites, title, movies); } }>add <span className="title-btn">{ title }</span> to favorites</button>
-    </div>
   );
 };
 
 const favoritesClick = (user, history, handleFavorites, handleRemove, favorites, title, movies) => {
   const userArray = Object.keys(user);
   const favKeys = Object.keys(favorites);
+  console.log(user);
 
   const postNewFavorite = {
     movie_id: movies[title].movie_id,
@@ -38,6 +55,7 @@ const favoritesClick = (user, history, handleFavorites, handleRemove, favorites,
   };
 
   if (!userArray.length) {
+    console.log('STOP');
     history.replace('/signup');
   } else if (favKeys.includes(title)) {
     fetch(`/api/users/${user[userArray[0]].id}/favorites/${movies[title].movie_id}`, {

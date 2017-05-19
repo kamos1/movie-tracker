@@ -8,6 +8,7 @@ class CreateUser extends Component {
       name: '',
       email: '',
       password: '',
+      
     };
   }
 
