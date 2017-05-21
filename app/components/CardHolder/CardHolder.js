@@ -4,7 +4,6 @@ import { Card } from '../Card/Card';
 
 export const CardHolder = (props) => {
   const { movies, user, history, handleFavorites, handleRemove, favorites } = props;
-  console.log(movies, 'movies');
   const moviesArray = Object.keys(movies).map(movie => (
       <Card key={ movies[movie].movie_id }
             history={ history }
