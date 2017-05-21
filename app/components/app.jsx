@@ -14,14 +14,14 @@ export default class App extends Component {
         <NavBarContainer />
         <h1>Movie Watcher</h1>
         <Route exact path="/" render={ ({ history }) => (
-          <MovieContainer history={history}/>
+          <MovieContainer history={history} />
         )} />
         <Route exact path='/login' render={ ({ history }) => (
-          <LoginContainer history={history}/>
+          <LoginContainer history={history} />
         )} />
         <Route exact path='/signup' render={ ({ history }) => (
             <CreateUser history={history} />
-          )} />
+        )} />
       </div>
     );
   }
