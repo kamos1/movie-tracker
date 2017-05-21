@@ -31,12 +31,14 @@ describe('User reducer tests', () => {
       user: {
         email: 'email.com',
         password: 'take an l',
+        id: '1',
       },
     };
 
     const expected = { 'email.com': {
       email: 'email.com',
       password: 'take an l',
+      id: '1',
     },
     };
 
