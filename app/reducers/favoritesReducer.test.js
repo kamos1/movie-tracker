@@ -7,8 +7,8 @@ describe('Favorite Reducer Tests', () => {
 
   it('Add a Movie to Favorites', () => {
     const action = {
-      type: 'ADD_TO_FAVORTIES',
-      movies: { 'Star Wars': {
+      type: 'ADD_TO_FAVORITES',
+      movie: { 'Star Wars': {
         movie_id: 66,
         poster_path: 'posterURL',
         overview: 'The battle between the light and the dark',
@@ -18,7 +18,7 @@ describe('Favorite Reducer Tests', () => {
       },
       },
     };
-    const expected = { 'Star Wars': {
+    const expected = {'undefined': { 'Star Wars': {
       movie_id: 66,
       poster_path: 'posterURL',
       overview: 'The battle between the light and the dark',
@@ -26,11 +26,13 @@ describe('Favorite Reducer Tests', () => {
       release_date: '20151215',
       vote_average: '10',
     },
-    };
+    }
+  }
+    expect(reducer(undefined, action)).toEqual(expected)
   });
 
   it('Remove a Movie to Favorites', () => {
-    const action = {
+    const actionRemove = {
       type: 'REMOVE_FAVORITE',
       movie: { 'Star Wars': {
         movie_id: 66,
@@ -42,7 +44,21 @@ describe('Favorite Reducer Tests', () => {
       },
       },
     };
-    const expected = { 'Star Wars': {
+
+    const actionAdd = {
+      type: 'ADD_TO_FAVORITES',
+      movie: { 'Star Wars': {
+        movie_id: 66,
+        poster_path: 'posterURL',
+        overview: 'The battle between the light and the dark',
+        title: 'Star Wars',
+        release_date: '20151215',
+        vote_average: '10',
+      },
+      },
+    };
+
+    const expected = {'undefined': { 'Star Wars': {
       movie_id: 66,
       poster_path: 'posterURL',
       overview: 'The battle between the light and the dark',
@@ -50,9 +66,12 @@ describe('Favorite Reducer Tests', () => {
       release_date: '20151215',
       vote_average: '10',
     },
-    };
+    }
+  }
 
-    expect(reducer(undefined, action)).toEqual({});
+    expect(reducer(undefined, actionAdd)).toEqual(expected)
+
+    expect(reducer(undefined, actionRemove)).toEqual({});
   });
 
   it('Should show all favorites from the server', () => {

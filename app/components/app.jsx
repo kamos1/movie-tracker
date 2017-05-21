@@ -8,7 +8,6 @@ import NavBarContainer from './containers/NavBarContainer';
 import FavoritesContainer from './containers/FavoritesContainer';
 import { PageNotFound } from './PageNotFound/PageNotFound';
 
-
 export default class App extends Component {
 
   render() {
@@ -16,27 +15,21 @@ export default class App extends Component {
       <div>
         <NavBarContainer />
         <h1>Movie Watcher</h1>
-
         <Switch>
           <Route exact path="/" render={ ({ history }) => (
-            <MovieContainer history={ history } />
+            <MovieContainer />
           )} />
-
           <Route exact path='/login' render={ ({ history }) => (
-            <LoginContainer history={ history } />
+            <LoginContainer history={history}/>
           )} />
-
           <Route exact path='/signup' render={ ({ history }) => (
-            <CreateUser history={ history } />
+            <CreateUser history={history} />
           )} />
-
           <Route exact path='/favorites' render={ ({ history }) => (
             <FavoritesContainer history={ history } />
           )} />
-
-          <Route path='/*' component={ PageNotFound } />
+            <Route path='/*' component={ PageNotFound } />
         </Switch>
-
       </div>
     );
   }
