@@ -73,11 +73,11 @@
 	
 	var _app2 = _interopRequireDefault(_app);
 	
-	var _index = __webpack_require__(273);
+	var _index = __webpack_require__(275);
 	
 	var _index2 = _interopRequireDefault(_index);
 	
-	var _actions = __webpack_require__(266);
+	var _actions = __webpack_require__(264);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -21866,7 +21866,7 @@
 	'use strict';
 	
 	exports.__esModule = true;
-	exports.connect = exports.connectAdvanced = exports.Provider = undefined;
+	exports.connect = exports.connectAdvanced = exports.createProvider = exports.Provider = undefined;
 	
 	var _Provider = __webpack_require__(184);
 	
@@ -21883,6 +21883,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	exports.Provider = _Provider2.default;
+	exports.createProvider = _Provider.createProvider;
 	exports.connectAdvanced = _connectAdvanced2.default;
 	exports.connect = _connect2.default;
 
@@ -21893,7 +21894,7 @@
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 	
 	exports.__esModule = true;
-	exports.default = undefined;
+	exports.createProvider = createProvider;
 	
 	var _react = __webpack_require__(2);
 	
@@ -21925,53 +21926,58 @@
 	  (0, _warning2.default)('<Provider> does not support changing `store` on the fly. ' + 'It is most likely that you see this error because you updated to ' + 'Redux 2.x and React Redux 2.x which no longer hot reload reducers ' + 'automatically. See https://github.com/reactjs/react-redux/releases/' + 'tag/v2.0.0 for the migration instructions.');
 	}
 	
-	var Provider = function (_Component) {
-	  _inherits(Provider, _Component);
+	function createProvider() {
+	  var _Provider$childContex;
 	
-	  Provider.prototype.getChildContext = function getChildContext() {
-	    return { store: this.store, storeSubscription: null };
-	  };
+	  var storeKey = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'store';
+	  var subKey = arguments[1];
 	
-	  function Provider(props, context) {
-	    _classCallCheck(this, Provider);
+	  var subscriptionKey = subKey || storeKey + 'Subscription';
 	
-	    var _this = _possibleConstructorReturn(this, _Component.call(this, props, context));
+	  var Provider = function (_Component) {
+	    _inherits(Provider, _Component);
 	
-	    _this.store = props.store;
-	    return _this;
+	    Provider.prototype.getChildContext = function getChildContext() {
+	      var _ref;
+	
+	      return _ref = {}, _ref[storeKey] = this[storeKey], _ref[subscriptionKey] = null, _ref;
+	    };
+	
+	    function Provider(props, context) {
+	      _classCallCheck(this, Provider);
+	
+	      var _this = _possibleConstructorReturn(this, _Component.call(this, props, context));
+	
+	      _this[storeKey] = props.store;
+	      return _this;
+	    }
+	
+	    Provider.prototype.render = function render() {
+	      return _react.Children.only(this.props.children);
+	    };
+	
+	    return Provider;
+	  }(_react.Component);
+	
+	  if (process.env.NODE_ENV !== 'production') {
+	    Provider.prototype.componentWillReceiveProps = function (nextProps) {
+	      if (this[storeKey] !== nextProps.store) {
+	        warnAboutReceivingStore();
+	      }
+	    };
 	  }
 	
-	  Provider.prototype.render = function render() {
-	    return _react.Children.only(this.props.children);
+	  Provider.propTypes = {
+	    store: _PropTypes.storeShape.isRequired,
+	    children: _propTypes2.default.element.isRequired
 	  };
+	  Provider.childContextTypes = (_Provider$childContex = {}, _Provider$childContex[storeKey] = _PropTypes.storeShape.isRequired, _Provider$childContex[subscriptionKey] = _PropTypes.subscriptionShape, _Provider$childContex);
+	  Provider.displayName = 'Provider';
 	
 	  return Provider;
-	}(_react.Component);
-	
-	exports.default = Provider;
-	
-	
-	if (process.env.NODE_ENV !== 'production') {
-	  Provider.prototype.componentWillReceiveProps = function (nextProps) {
-	    var store = this.store;
-	    var nextStore = nextProps.store;
-	
-	
-	    if (store !== nextStore) {
-	      warnAboutReceivingStore();
-	    }
-	  };
 	}
 	
-	Provider.propTypes = {
-	  store: _PropTypes.storeShape.isRequired,
-	  children: _propTypes2.default.element.isRequired
-	};
-	Provider.childContextTypes = {
-	  store: _PropTypes.storeShape.isRequired,
-	  storeSubscription: _PropTypes.subscriptionShape
-	};
-	Provider.displayName = 'Provider';
+	exports.default = createProvider();
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
@@ -27532,13 +27538,21 @@
 	
 	var _MovieContainer2 = _interopRequireDefault(_MovieContainer);
 	
-	var _LoginContainer = __webpack_require__(265);
+	var _LoginContainer = __webpack_require__(268);
 	
 	var _LoginContainer2 = _interopRequireDefault(_LoginContainer);
 	
-	var _CreateUser = __webpack_require__(271);
+	var _CreateUser = __webpack_require__(270);
 	
 	var _CreateUser2 = _interopRequireDefault(_CreateUser);
+	
+	var _NavBarContainer = __webpack_require__(272);
+	
+	var _NavBarContainer2 = _interopRequireDefault(_NavBarContainer);
+	
+	var _FavoritesContainer = __webpack_require__(274);
+	
+	var _FavoritesContainer2 = _interopRequireDefault(_FavoritesContainer);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -27554,7 +27568,7 @@
 	  function App() {
 	    _classCallCheck(this, App);
 	
-	    return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this));
+	    return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
 	  }
 	
 	  _createClass(App, [{
@@ -27563,21 +27577,27 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
+	        _react2.default.createElement(_NavBarContainer2.default, null),
 	        _react2.default.createElement(
 	          'h1',
 	          null,
 	          'Movie Watcher'
 	        ),
-	        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', render: function render() {
-	            return _react2.default.createElement(_MovieContainer2.default, null);
-	          } }),
-	        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/login', render: function render(_ref) {
+	        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', render: function render(_ref) {
 	            var history = _ref.history;
+	            return _react2.default.createElement(_MovieContainer2.default, { history: history });
+	          } }),
+	        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/login', render: function render(_ref2) {
+	            var history = _ref2.history;
 	            return _react2.default.createElement(_LoginContainer2.default, { history: history });
 	          } }),
-	        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/signup', render: function render(_ref2) {
-	            var history = _ref2.history;
+	        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/signup', render: function render(_ref3) {
+	            var history = _ref3.history;
 	            return _react2.default.createElement(_CreateUser2.default, { history: history });
+	          } }),
+	        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/favorites', render: function render(_ref4) {
+	            var history = _ref4.history;
+	            return _react2.default.createElement(_FavoritesContainer2.default, { history: history });
 	          } })
 	      );
 	    }
@@ -27602,13 +27622,28 @@
 	
 	var _CardHolder = __webpack_require__(262);
 	
+	var _actions = __webpack_require__(264);
+	
 	var mapStateToProps = function mapStateToProps(state) {
 	  return {
-	    movies: state.moviesReducer
+	    movies: state.moviesReducer,
+	    user: state.userReducer,
+	    favorites: state.favoritesReducer
 	  };
 	};
 	
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, null)(_CardHolder.CardHolder);
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return {
+	    handleFavorites: function handleFavorites(movie) {
+	      dispatch((0, _actions.addToFavorites)(movie));
+	    },
+	    handleRemove: function handleRemove(movie) {
+	      dispatch((0, _actions.removeFavorite)(movie));
+	    }
+	  };
+	};
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_CardHolder.CardHolder);
 
 /***/ }),
 /* 262 */
@@ -27634,10 +27669,22 @@
 	// import './CardHolder.css';
 	
 	var CardHolder = exports.CardHolder = function CardHolder(props) {
-	  var movies = props.movies;
+	  var movies = props.movies,
+	      user = props.user,
+	      history = props.history,
+	      handleFavorites = props.handleFavorites,
+	      handleRemove = props.handleRemove,
+	      favorites = props.favorites;
 	
 	  var moviesArray = Object.keys(movies).map(function (movie) {
-	    return _react2.default.createElement(_Card.Card, _extends({ key: movies[movie].id }, movies[movie]));
+	    return _react2.default.createElement(_Card.Card, _extends({ key: movies[movie].movie_id,
+	      history: history,
+	      user: user,
+	      favorites: favorites,
+	      handleFavorites: handleFavorites,
+	      handleRemove: handleRemove,
+	      movies: movies
+	    }, movies[movie]));
 	  });
 	
 	  return _react2.default.createElement(
@@ -27651,7 +27698,7 @@
 /* 263 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -27662,37 +27709,132 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	__webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./Card.css\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	// import './Card.css';
 	
 	var Card = exports.Card = function Card(props) {
 	  var title = props.title,
-	      synopsis = props.synopsis,
-	      poster = props.poster;
+	      overview = props.overview,
+	      poster_path = props.poster_path,
+	      user = props.user,
+	      history = props.history,
+	      handleFavorites = props.handleFavorites,
+	      handleRemove = props.handleRemove,
+	      favorites = props.favorites,
+	      movies = props.movies;
 	
 	
 	  return _react2.default.createElement(
-	    'div',
-	    { className: 'card-box' },
-	    _react2.default.createElement('img', { src: poster }),
+	    "div",
+	    { className: "card-box" },
+	    _react2.default.createElement("img", { src: poster_path }),
 	    _react2.default.createElement(
-	      'h2',
-	      null,
-	      'Title: ',
+	      "h2",
+	      { className: "movie-title" },
 	      title
 	    ),
 	    _react2.default.createElement(
-	      'p',
-	      null,
-	      synopsis
-	    )
+	      "article",
+	      { className: "movie-details" },
+	      _react2.default.createElement(
+	        "p",
+	        null,
+	        overview
+	      )
+	    ),
+	    buttonDisplay(props)
 	  );
 	};
+	
+	var buttonDisplay = function buttonDisplay(props) {
+	  var title = props.title,
+	      overview = props.overview,
+	      poster_path = props.poster_path,
+	      user = props.user,
+	      history = props.history,
+	      handleFavorites = props.handleFavorites,
+	      handleRemove = props.handleRemove,
+	      favorites = props.favorites,
+	      movies = props.movies;
+	
+	
+	  if (!Object.keys(user).length) {
+	    return _react2.default.createElement(
+	      "button",
+	      { className: "fav-btn",
+	        onClick: function onClick() {
+	          history.replace('/signup');
+	        } },
+	      "add ",
+	      _react2.default.createElement(
+	        "span",
+	        { className: "title-btn" },
+	        title
+	      ),
+	      " to favorites"
+	    );
+	  }
+	  return _react2.default.createElement(
+	    "button",
+	    { className: "fav-btn",
+	      onClick: function onClick() {
+	        favoritesClick(user, history, handleFavorites, handleRemove, favorites, title, movies);
+	      } },
+	    "add ",
+	    _react2.default.createElement(
+	      "span",
+	      { className: "title-btn" },
+	      title
+	    ),
+	    " to favorites"
+	  );
+	};
+	
+	var favoritesClick = function favoritesClick(user, history, handleFavorites, handleRemove, favorites, title, movies) {
+	  var userArray = Object.keys(user);
+	  var favKeys = Object.keys(favorites);
+	  console.log(user);
+	
+	  var postNewFavorite = {
+	    movie_id: movies[title].movie_id,
+	    user_id: user[userArray[0]].id,
+	    title: movies[title].title,
+	    poster_path: movies[title].poster_path,
+	    release_date: movies[title].release_date,
+	    vote_average: movies[title].vote_average,
+	    overview: movies[title].overview
+	  };
+	
+	  var postRemoveFavorite = {
+	    user_id: user[userArray[0]].id,
+	    movie_id: movies[title].movie_id
+	  };
+	
+	  if (!userArray.length) {
+	    console.log('STOP');
+	    history.replace('/signup');
+	  } else if (favKeys.includes(title)) {
+	    fetch("/api/users/" + user[userArray[0]].id + "/favorites/" + movies[title].movie_id, {
+	      method: 'DELETE',
+	      body: JSON.stringify(postRemoveFavorite),
+	      headers: { 'Content-Type': 'application/json' }
+	    });
+	    handleRemove(movies[title]);
+	  } else {
+	    fetch('api/users/favorites/new', {
+	      method: 'POST',
+	      body: JSON.stringify(postNewFavorite),
+	      headers: { 'Content-Type': 'application/json' }
+	    }).then(function (resp) {
+	      return resp.json();
+	    });
+	    handleFavorites(movies[title]);
+	  }
+	};
 
 /***/ }),
-/* 264 */,
-/* 265 */
+/* 264 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27700,45 +27842,9 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	exports.addAllFavorites = exports.showFavorites = exports.removeFavorite = exports.addToFavorites = exports.userLogout = exports.createUser = exports.userLogin = exports.movieSuccess = exports.loadMovies = undefined;
 	
-	var _reactRedux = __webpack_require__(183);
-	
-	var _actions = __webpack_require__(266);
-	
-	var _Login = __webpack_require__(270);
-	
-	var _Login2 = _interopRequireDefault(_Login);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var mapStateToProps = function mapStateToProps(state) {
-	  return {
-	    users: state.userReducer
-	  };
-	};
-	
-	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-	  return {
-	    handleSubmit: function handleSubmit(email, password) {
-	      dispatch((0, _actions.userLogin)(email, password));
-	    }
-	  };
-	};
-	
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_Login2.default);
-
-/***/ }),
-/* 266 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.createUser = exports.userLogin = exports.movieSuccess = exports.loadMovies = undefined;
-	
-	var _movieApi = __webpack_require__(267);
+	var _movieApi = __webpack_require__(265);
 	
 	var _movieApi2 = _interopRequireDefault(_movieApi);
 	
@@ -27772,9 +27878,44 @@
 	    user: user
 	  };
 	};
+	
+	var userLogout = exports.userLogout = function userLogout(user) {
+	  return {
+	    type: 'USER_LOGOUT_SUCCESS',
+	    user: user
+	  };
+	};
+	
+	var addToFavorites = exports.addToFavorites = function addToFavorites(movie) {
+	  return {
+	    type: 'ADD_TO_FAVORITES',
+	    movie: movie
+	  };
+	};
+	
+	var removeFavorite = exports.removeFavorite = function removeFavorite(movie) {
+	  return {
+	    type: 'REMOVE_FAVORITE',
+	    movie: movie
+	  };
+	};
+	
+	var showFavorites = exports.showFavorites = function showFavorites(movies) {
+	  return {
+	    type: 'SHOW_FAVORITES',
+	    movies: movies
+	  };
+	};
+	
+	var addAllFavorites = exports.addAllFavorites = function addAllFavorites(movies) {
+	  return {
+	    type: 'ADD_ALL_FAVORITES',
+	    movies: movies
+	  };
+	};
 
 /***/ }),
-/* 267 */
+/* 265 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27785,9 +27926,9 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _cleaner = __webpack_require__(268);
+	var _cleaner = __webpack_require__(266);
 	
-	var _key = __webpack_require__(269);
+	var _key = __webpack_require__(267);
 	
 	var _key2 = _interopRequireDefault(_key);
 	
@@ -27817,7 +27958,7 @@
 	exports.default = MovieApi;
 
 /***/ }),
-/* 268 */
+/* 266 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -27830,9 +27971,11 @@
 	    if (!acc[val.title]) {
 	      acc[val.title] = {
 	        title: val.title,
-	        synopsis: val.overview,
-	        poster: "https://image.tmdb.org/t/p/w500" + val.poster_path,
-	        id: val.id
+	        overview: val.overview,
+	        poster_path: "https://image.tmdb.org/t/p/w500" + val.poster_path,
+	        movie_id: val.id,
+	        release_date: val.release_date,
+	        vote_average: val.vote_average
 	      };
 	    }
 	    return acc;
@@ -27840,7 +27983,7 @@
 	};
 
 /***/ }),
-/* 269 */
+/* 267 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -27851,7 +27994,50 @@
 	exports.default = '08db6347397d35805c52f14b6e522d69';
 
 /***/ }),
-/* 270 */
+/* 268 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _reactRedux = __webpack_require__(183);
+	
+	var _actions = __webpack_require__(264);
+	
+	var _Login = __webpack_require__(269);
+	
+	var _Login2 = _interopRequireDefault(_Login);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var mapStateToProps = function mapStateToProps(state) {
+	  return {
+	    movies: state.moviesReducer,
+	    users: state.userReducer
+	  };
+	};
+	
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return {
+	    handleSubmit: function handleSubmit(email, password, id) {
+	      dispatch((0, _actions.userLogin)(email, password, id));
+	    },
+	    handleFavorites: function handleFavorites(movie) {
+	      dispatch((0, _actions.addToFavorites)(movie));
+	    },
+	    handleAllFavorites: function handleAllFavorites(movie) {
+	      dispatch((0, _actions.addAllFavorites)(movie));
+	    }
+	  };
+	};
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_Login2.default);
+
+/***/ }),
+/* 269 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27884,7 +28070,8 @@
 	
 	    _this.state = {
 	      email: '',
-	      password: ''
+	      password: '',
+	      id: ''
 	    };
 	    return _this;
 	  }
@@ -27901,19 +28088,56 @@
 	      }).then(function (users) {
 	        var foundUser = users.data.find(function (user) {
 	          return user.email === _this2.state.email;
-	        });
-	        if (foundUser.password === _this2.state.password) {
-	          _this2.props.handleSubmit(_this2.state);
-	          _this2.props.history.replace('/');
-	        } else {
-	          alert('Email and Password do not match');
-	        }
+	        }) || '';
+	        _this2.setState({ id: foundUser.id });
+	        _this2.checkPass(foundUser);
 	      }).catch('error posting to api');
+	    }
+	  }, {
+	    key: 'checkPass',
+	    value: function checkPass(foundUser) {
+	      var _this3 = this;
+	
+	      if (foundUser.password === this.state.password) {
+	        this.props.handleSubmit(this.state);
+	        this.props.history.replace('/');
+	        fetch('api/users/' + foundUser.id + '/favorites', {
+	          method: 'GET'
+	        }).then(function (res) {
+	          return res.json();
+	        }).then(function (favs) {
+	          _this3.getFavorites(favs);
+	        });
+	      } else {
+	        alert('Wrong Password');
+	      }
+	    }
+	  }, {
+	    key: 'getFavorites',
+	    value: function getFavorites(favs) {
+	      if (!favs.data.length) {
+	        return {};
+	      }
+	      var favsArray = Object.keys(favs.data);
+	      var favsData = favsArray.reduce(function (acc, movie) {
+	        if (!acc[movie.title]) {
+	          acc[favs.data[movie].title] = {
+	            title: favs.data[movie].title,
+	            overview: favs.data[movie].overview,
+	            poster_path: favs.data[movie].poster_path,
+	            movie_id: favs.data[movie].movie_id,
+	            release_date: favs.data[movie].release_date,
+	            vote_average: favs.data[movie].vote_average
+	          };
+	        }
+	        return acc;
+	      }, {});
+	      this.props.handleAllFavorites(favsData);
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this3 = this;
+	      var _this4 = this;
 	
 	      return _react2.default.createElement(
 	        'form',
@@ -27921,20 +28145,20 @@
 	        _react2.default.createElement('input', {
 	          type: 'text',
 	          onChange: function onChange(e) {
-	            return _this3.setState({ email: e.target.value });
+	            return _this4.setState({ email: e.target.value });
 	          },
 	          placeholder: 'Email' }),
 	        _react2.default.createElement('input', {
 	          type: 'text',
 	          onChange: function onChange(e) {
-	            return _this3.setState({ password: e.target.value });
+	            return _this4.setState({ password: e.target.value });
 	          },
 	          placeholder: 'Password' }),
 	        _react2.default.createElement(
 	          'button',
 	          { onClick: function onClick(e) {
 	              e.preventDefault();
-	              _this3.verifyLogin(_this3.state);
+	              _this4.verifyLogin(_this4.state);
 	            } },
 	          'Submit'
 	        )
@@ -27948,7 +28172,7 @@
 	exports.default = Login;
 
 /***/ }),
-/* 271 */
+/* 270 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27963,7 +28187,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _CreateUserContainer = __webpack_require__(272);
+	var _CreateUserContainer = __webpack_require__(271);
 	
 	var _CreateUserContainer2 = _interopRequireDefault(_CreateUserContainer);
 	
@@ -27987,6 +28211,7 @@
 	      name: '',
 	      email: '',
 	      password: ''
+	
 	    };
 	    return _this;
 	  }
@@ -27994,25 +28219,34 @@
 	  _createClass(CreateUser, [{
 	    key: 'verifyUser',
 	    value: function verifyUser(obj) {
-	      var keys = Object.keys(this.props.users);
+	      var _this2 = this;
 	
-	      if (keys.includes(this.state.email)) {
-	        alert('Email has already been used');
-	      }
+	      fetch('/api/users', {
+	        method: 'GET'
+	      }).then(function (resp) {
+	        return resp.json();
+	      }).then(function (userData) {
+	        var match = userData.data.find(function (user) {
+	          return user.email === _this2.state.email;
+	        });
 	
-	      this.props.handleCreateUser(this.state);
-	      fetch('/api/users/new', {
-	        method: 'POST',
-	        body: JSON.stringify({ name: this.state.name, email: this.state.email, password: this.state.password }),
-	        headers: { 'Content-Type': 'application/json' }
-	      }).catch('error posting to api');
-	
-	      this.props.history.replace('/');
+	        if (match) {
+	          alert('Email has already been used');
+	        } else {
+	          _this2.props.handleCreateUser(_this2.state);
+	          fetch('/api/users/new', {
+	            method: 'POST',
+	            body: JSON.stringify({ name: _this2.state.name, email: _this2.state.email, password: _this2.state.password }),
+	            headers: { 'Content-Type': 'application/json' }
+	          }).catch('error posting to api');
+	          _this2.props.history.replace('/login');
+	        }
+	      });
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this2 = this;
+	      var _this3 = this;
 	
 	      return _react2.default.createElement(
 	        'form',
@@ -28020,26 +28254,26 @@
 	        _react2.default.createElement('input', {
 	          type: 'text',
 	          onChange: function onChange(e) {
-	            return _this2.setState({ name: e.target.value });
+	            return _this3.setState({ name: e.target.value });
 	          },
 	          placeholder: 'Name' }),
 	        _react2.default.createElement('input', {
 	          type: 'text',
 	          onChange: function onChange(e) {
-	            return _this2.setState({ email: e.target.value });
+	            return _this3.setState({ email: e.target.value });
 	          },
 	          placeholder: 'Email' }),
 	        _react2.default.createElement('input', {
 	          type: 'text',
 	          onChange: function onChange(e) {
-	            return _this2.setState({ password: e.target.value });
+	            return _this3.setState({ password: e.target.value });
 	          },
 	          placeholder: 'Password' }),
 	        _react2.default.createElement(
 	          'button',
 	          { onClick: function onClick(e) {
 	              e.preventDefault();
-	              _this2.verifyUser(_this2.state);
+	              _this3.verifyUser(_this3.state);
 	            } },
 	          'Submit'
 	        )
@@ -28053,7 +28287,7 @@
 	exports.default = (0, _CreateUserContainer2.default)(CreateUser);
 
 /***/ }),
-/* 272 */
+/* 271 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28064,7 +28298,7 @@
 	
 	var _reactRedux = __webpack_require__(183);
 	
-	var _actions = __webpack_require__(266);
+	var _actions = __webpack_require__(264);
 	
 	var mapStateToProps = function mapStateToProps(state) {
 	  return {
@@ -28083,7 +28317,155 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps);
 
 /***/ }),
+/* 272 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _reactRedux = __webpack_require__(183);
+	
+	var _NavBar = __webpack_require__(273);
+	
+	var _actions = __webpack_require__(264);
+	
+	var mapStateToProps = function mapStateToProps(state) {
+	  return {
+	    user: state.userReducer
+	  };
+	};
+	
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return {
+	    handleLogout: function handleLogout(user) {
+	      dispatch((0, _actions.userLogout)(user));
+	    }
+	  };
+	};
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_NavBar.NavBar);
+
+/***/ }),
 /* 273 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.NavBar = undefined;
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouterDom = __webpack_require__(223);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var NavBar = exports.NavBar = function NavBar(props) {
+	  var user = props.user,
+	      handleLogout = props.handleLogout;
+	
+	  return _react2.default.createElement(
+	    'div',
+	    { className: 'navBar' },
+	    userStatus(user, handleLogout)
+	  );
+	};
+	
+	var userStatus = function userStatus(user, handleLogout) {
+	  var userArray = Object.keys(user);
+	  if (!userArray.length) {
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'navBar' },
+	      _react2.default.createElement(
+	        _reactRouterDom.NavLink,
+	        { activeClassName: 'selected', to: '/' },
+	        'Home'
+	      ),
+	      _react2.default.createElement(
+	        _reactRouterDom.NavLink,
+	        { activeClassName: 'selected', to: '/login' },
+	        'Login'
+	      ),
+	      _react2.default.createElement(
+	        _reactRouterDom.NavLink,
+	        { activeClassName: 'selected', to: '/signup' },
+	        'Signup'
+	      )
+	    );
+	  }
+	
+	  return _react2.default.createElement(
+	    'div',
+	    { className: 'navBar' },
+	    _react2.default.createElement(
+	      _reactRouterDom.NavLink,
+	      { activeClassName: 'selected', to: '/' },
+	      'Home'
+	    ),
+	    _react2.default.createElement(
+	      _reactRouterDom.NavLink,
+	      { activeClassName: 'selected', to: '/favorites' },
+	      'Favorites'
+	    ),
+	    _react2.default.createElement(
+	      _reactRouterDom.NavLink,
+	      { activeClassName: 'selected',
+	        to: '/login',
+	        onClick: function onClick() {
+	          handleLogout();
+	        } },
+	      'Logout'
+	    )
+	  );
+	};
+
+/***/ }),
+/* 274 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _reactRedux = __webpack_require__(183);
+	
+	var _CardHolder = __webpack_require__(262);
+	
+	var _actions = __webpack_require__(264);
+	
+	var mapStateToProps = function mapStateToProps(state) {
+	  return {
+	    user: state.userReducer,
+	    movies: state.favoritesReducer,
+	    favorites: state.favoritesReducer
+	  };
+	};
+	
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return {
+	    handleFavorites: function handleFavorites(movie) {
+	      dispatch((0, _actions.addToFavorites)(movie));
+	    },
+	    handleRemove: function handleRemove(movie) {
+	      dispatch((0, _actions.removeFavorite)(movie));
+	    }
+	  };
+	};
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_CardHolder.CardHolder);
+
+/***/ }),
+/* 275 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28094,19 +28476,22 @@
 	
 	var _redux = __webpack_require__(196);
 	
-	var _moviesReducer = __webpack_require__(274);
+	var _moviesReducer = __webpack_require__(276);
 	
-	var _userReducer = __webpack_require__(275);
+	var _userReducer = __webpack_require__(277);
+	
+	var _favoritesReducer = __webpack_require__(278);
 	
 	var rootReducer = (0, _redux.combineReducers)({
 	  moviesReducer: _moviesReducer.moviesReducer,
-	  userReducer: _userReducer.userReducer
+	  userReducer: _userReducer.userReducer,
+	  favoritesReducer: _favoritesReducer.favoritesReducer
 	});
 	
 	exports.default = rootReducer;
 
 /***/ }),
-/* 274 */
+/* 276 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -28127,7 +28512,7 @@
 	};
 
 /***/ }),
-/* 275 */
+/* 277 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -28147,6 +28532,37 @@
 	      return Object.assign({}, state, _defineProperty({}, action.user.email, action.user));
 	    case 'USER_LOGIN_SUCCESS':
 	      return Object.assign({}, state, _defineProperty({}, action.user.email, action.user));
+	    case 'USER_LOGOUT_SUCCESS':
+	      return {};
+	    default:
+	      return state;
+	  }
+	};
+
+/***/ }),
+/* 278 */
+/***/ (function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+	
+	var favoritesReducer = exports.favoritesReducer = function favoritesReducer() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+	  var action = arguments[1];
+	
+	  switch (action.type) {
+	    case 'ADD_TO_FAVORITES':
+	      return Object.assign({}, state, _defineProperty({}, action.movie.title, action.movie));
+	    case 'REMOVE_FAVORITE':
+	      var newState = delete state[action.movie.title];
+	      return Object.assign({}, state, newState);
+	    case 'ADD_ALL_FAVORITES':
+	      return Object.assign({}, action.movies);
 	    default:
 	      return state;
 	  }
