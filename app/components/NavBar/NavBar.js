@@ -23,12 +23,19 @@ const userStatus = (user, handleLogout) => {
   }
 
   return (
-    <div className = 'navBar'>
-       <NavLink activeClassName='selected' to='/'>Home</NavLink>
-       <NavLink activeClassName='selected' to='/favorites'>Favorites</NavLink>
-       <NavLink activeClassName="selected"
-                to='/login'
-                onClick={ () => { handleLogout(); } }>Logout</NavLink>
+    <div className='navBar'>
+        <NavLink activeClassName='selected' to='/'>
+          Home
+        </NavLink>
+
+        <NavLink activeClassName='selected' to='/favorites'>
+          Favorites
+        </NavLink>
+
+        <NavLink activeClassName="selected" to='/login'
+                 onClick={ () => { handleLogout(); } }>
+          Logout
+        </NavLink>
     </div>
   );
 };

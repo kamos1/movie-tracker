@@ -2,7 +2,6 @@ import { connect } from 'react-redux';
 import { NavBar } from '../NavBar/NavBar';
 import { userLogout } from '../../actions/actions';
 
-
 const mapStateToProps = state => ({
   user: state.userReducer,
 });

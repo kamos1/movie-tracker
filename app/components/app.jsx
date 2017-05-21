@@ -34,7 +34,7 @@ export default class App extends Component {
             <FavoritesContainer history={ history } />
           )} />
 
-          <Route path='*' component={ PageNotFound } />
+          <Route path='/*' component={ PageNotFound } />
         </Switch>
 
       </div>
