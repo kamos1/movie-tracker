@@ -7,28 +7,36 @@ class CreateUser extends Component {
     this.state = {
       name: '',
       email: '',
-      password: ''
+      password: '',
+      
     };
   }
 
   verifyUser(obj) {
-    const keys = Object.keys(this.props.users);
 
-    if (keys.includes(this.state.email)) {
-      alert('Email has already been used');
-    }
-
-    this.props.handleCreateUser(this.state);
-    fetch('/api/users/new', {
-      method: 'POST',
-      body: JSON.stringify({ name: this.state.name, email: this.state.email, password: this.state.password }),
-      headers: { 'Content-Type': 'application/json' },
+    fetch('/api/users',{
+      method: 'GET',
     })
-      .catch('error posting to api');
+      .then(resp => resp.json())
+      .then(userData => {
+        let match = userData.data.find((user) =>{
+          return user.email === this.state.email
+        })
 
-    this.props.history.replace('/');
+        if (match){
+          alert('Email has already been used')
+        } else {
+          this.props.handleCreateUser(this.state);
+          fetch('/api/users/new', {
+            method: 'POST',
+            body: JSON.stringify({ name: this.state.name, email: this.state.email, password: this.state.password }),
+            headers: { 'Content-Type': 'application/json' },
+          })
+          .catch('error posting to api');
+          this.props.history.replace('/login');
+        }
+      })
   }
-
 
   render() {
     return (

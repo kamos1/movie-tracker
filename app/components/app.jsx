@@ -4,7 +4,10 @@ import React, { Component } from 'react';
 import MovieContainer from './containers/MovieContainer';
 import LoginContainer from './containers/LoginContainer';
 import CreateUser from './CreateUser/CreateUser';
-import NavBarContainer from './containers/NavBarContainer'
+import NavBarContainer from './containers/NavBarContainer';
+import FavoritesContainer from './containers/FavoritesContainer';
+import { PageNotFound } from './PageNotFound/PageNotFound';
+
 
 export default class App extends Component {
 
@@ -13,15 +16,27 @@ export default class App extends Component {
       <div>
         <NavBarContainer />
         <h1>Movie Watcher</h1>
-        <Route exact path="/" render={ ({ history }) => (
-          <MovieContainer history={history} />
-        )} />
-        <Route exact path='/login' render={ ({ history }) => (
-          <LoginContainer history={history} />
-        )} />
-        <Route exact path='/signup' render={ ({ history }) => (
-            <CreateUser history={history} />
-        )} />
+
+        <Switch>
+          <Route exact path="/" render={ ({ history }) => (
+            <MovieContainer history={ history } />
+          )} />
+
+          <Route exact path='/login' render={ ({ history }) => (
+            <LoginContainer history={ history } />
+          )} />
+
+          <Route exact path='/signup' render={ ({ history }) => (
+            <CreateUser history={ history } />
+          )} />
+
+          <Route exact path='/favorites' render={ ({ history }) => (
+            <FavoritesContainer history={ history } />
+          )} />
+
+          <Route path='*' component={ PageNotFound } />
+        </Switch>
+
       </div>
     );
   }

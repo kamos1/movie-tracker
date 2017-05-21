@@ -1,46 +1,47 @@
-import { userReducer as reducer } from './userReducer'
+import { userReducer as reducer } from './userReducer';
 
-describe('User reducer tests', ()=>{
+describe('User reducer tests', () => {
+  it('should return an empty boject on default', () => {
+    expect(reducer(undefined, {})).toEqual({});
+  });
 
-  it('should return an empty boject on default', () =>{
-    expect(reducer(undefined, {})).toEqual({})
-  })
-
-  it('Creates a user if successfull', () =>{
+  it('Creates a user if successfull', () => {
     const action = {
       type: 'CREATE_USER',
       user: {
-          name: 'Chris Bandrowsky',
-          email: 'email.com',
-          password: 'take an l',
-          }
-        }
+        name: 'Chris Bandrowsky',
+        email: 'email.com',
+        password: 'take an l',
+      },
+    };
 
     const expected = { 'email.com': {
-        'name': 'Chris Bandrowsky',
-        'email': 'email.com',
-        'password': 'take an l'
-        }
-      }
+      name: 'Chris Bandrowsky',
+      email: 'email.com',
+      password: 'take an l',
+    },
+    };
 
-    expect(reducer(undefined, action)).toEqual(expected)
-  })
+    expect(reducer(undefined, action)).toEqual(expected);
+  });
 
-  it('Logs in a user', () =>{
+  it('Logs in a user', () => {
     const action = {
       type: 'USER_LOGIN_SUCCESS',
       user: {
-          email: 'email.com',
-          password: 'take an l',
-          }
-        }
+        email: 'email.com',
+        password: 'take an l',
+        id: '1',
+      },
+    };
 
     const expected = { 'email.com': {
-        'email': 'email.com',
-        'password': 'take an l'
-        }
-      }
+      email: 'email.com',
+      password: 'take an l',
+      id: '1',
+    },
+    };
 
-    expect(reducer(undefined, action)).toEqual(expected)
-  })
-})
+    expect(reducer(undefined, action)).toEqual(expected);
+  });
+});
