@@ -4,9 +4,10 @@ import React from 'react';
 export const Card = (props) => {
   const { title, overview, poster_path, user, history,
           handleFavorites, handleRemove, favorites, movies } = props;
+  let cssClass = setClass(title, favorites);
 
   return (
-    <div className="card-box">
+    <div className= {`card-box ${cssClass}`}>
       <img src={ poster_path } />
       <h2 className="movie-title">{title}</h2>
       <article className="movie-details">
@@ -79,3 +80,11 @@ const favoritesClick = (user, history, handleFavorites, handleRemove, favorites,
     handleFavorites(movies[title]);
   }
 };
+
+const setClass = (title, favorites) =>{
+  if (Object.keys(favorites).includes(title)){
+    return 'select-favorite'
+  } else {
+    return undefined
+  }
+}
