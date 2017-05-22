@@ -24,17 +24,17 @@ const buttonDisplay = (props) => {
 
   if (!Object.keys(user).length) {
     return (
-      <button className="fav-btn"
+      <button className="fav-btn-add"
               onClick={ () => { history.replace('/signup'); } }>add <span className="title-btn">{ title }</span> to favorites</button>
     );
   } else if (Object.keys(favorites).includes(title)){
     return (
-        <button className="fav-btn"
+        <button className="fav-btn-remove"
                 onClick={ () => { favoritesClick(user, history, handleFavorites, handleRemove, favorites, title, movies); } }>Remove <span className="title-btn">{ title }</span> from favorites</button>
               )
   }
   return (
-      <button className="fav-btn"
+      <button className="fav-btn-add"
               onClick={ () => { favoritesClick(user, history, handleFavorites, handleRemove, favorites, title, movies); } }>Add <span className="title-btn">{ title }</span> to favorites</button>
   );
 };
