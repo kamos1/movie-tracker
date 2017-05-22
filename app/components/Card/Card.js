@@ -26,17 +26,23 @@ const buttonDisplay = (props) => {
       <button className="fav-btn"
               onClick={ () => { history.replace('/signup'); } }>add <span className="title-btn">{ title }</span> to favorites</button>
     );
+  } else if (Object.keys(favorites).includes(title)){
+    return (
+        <button className="fav-btn"
+                onClick={ () => { favoritesClick(user, history, handleFavorites, handleRemove, favorites, title, movies); } }>Remove <span className="title-btn">{ title }</span> from favorites</button>
+              )
   }
   return (
       <button className="fav-btn"
-              onClick={ () => { favoritesClick(user, history, handleFavorites, handleRemove, favorites, title, movies); } }>add <span className="title-btn">{ title }</span> to favorites</button>
+              onClick={ () => { favoritesClick(user, history, handleFavorites, handleRemove, favorites, title, movies); } }>Add <span className="title-btn">{ title }</span> to favorites</button>
   );
 };
 
 const favoritesClick = (user, history, handleFavorites, handleRemove, favorites, title, movies) => {
   const userArray = Object.keys(user);
   const favKeys = Object.keys(favorites);
-  console.log(user);
+  console.log(Object.keys(favorites))
+  console.log(title)
 
   const postNewFavorite = {
     movie_id: movies[title].movie_id,
