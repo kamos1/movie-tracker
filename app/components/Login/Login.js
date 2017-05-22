@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+
 export default class Login extends Component {
   constructor(props) {
     super(props);
@@ -10,22 +11,17 @@ export default class Login extends Component {
     };
   }
 
-  verifyLogin(state) {
+  fetchUsers() {
     fetch('/api/users/', {
       method: 'GET',
     })
       .then(res => res.json())
-      .then((users) => {
-        const foundUser = users.data.find(user => user.email === this.state.email) || '';
-        this.setState({ id: foundUser.id });
-        this.checkPass(foundUser)
-      })
+      .then(users => this.verifyLogin(users))
       .catch('error posting to api');
-
-
   }
 
-  checkPass(foundUser){
+
+  checkPass(foundUser) {
     if (foundUser.password === this.state.password) {
       this.props.handleSubmit(this.state);
       this.props.history.replace('/');
@@ -34,14 +30,20 @@ export default class Login extends Component {
       })
         .then(res => res.json())
         .then((favs) => {
-          this.getFavorites(favs)
-        })
-      } else {
-        alert('Wrong Password')
-      }
+          this.getFavorites(favs);
+        });
+    } else {
+      alert('Wrong Password');
     }
+  }
 
-  getFavorites(favs){
+  verifyLogin(users) {
+    const foundUser = users.data.find(user => user.email === this.state.email) || '';
+    this.setState({ id: foundUser.id });
+    this.checkPass(foundUser);
+  }
+
+  getFavorites(favs) {
     if (!favs.data.length) {
       return {};
     }
@@ -75,7 +77,7 @@ export default class Login extends Component {
           placeholder='Password'/>
         <button onClick={(e) => {
           e.preventDefault();
-          this.verifyLogin(this.state);
+          this.fetchUsers(this.state);
         }}>
         Submit</button>
       </form>
