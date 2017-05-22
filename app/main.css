@@ -26,7 +26,11 @@
 }
 
 .card-box:hover {
-  background-color: rgba(51, 187, 218, 0.44);
+  background-color: #e0fcff;
+}
+
+.select-favorite{
+  background-color: #d6e5ff;
 }
 
 .card-box img {
@@ -56,20 +60,36 @@
   font-family: 'Alegreya', serif;
 }
 
-.fav-btn {
+.fav-btn-add {
   border-radius: 25px;
-  background-color: rgba(212, 212, 212, 0.3);
+  background-color: rgb(230, 230, 230);
   box-shadow: 0 0 16px -2px #538de4;
   border: none;
   margin-bottom: 15px;
   width: 90%;
-  font-size: 10px;
+  height: 40px;
+  font-size: 12px;
+}
+
+.fav-btn-remove {
+  border-radius: 25px;
+  background-color: rgb(230, 230, 230);
+  box-shadow: 0 0 16px -2px #ea2c55;
+  border: none;
+  margin-bottom: 15px;
+  width: 90%;
+  height: 40px;
+  font-size: 12px;
 }
 
 .title-btn {
   color: #ea2c55;
 }
 
-.fav-btn:hover {
+.fav-btn-add:hover {
   box-shadow: 0 0 16px -2px #ea2c55;
+}
+
+.fav-btn-remove:hover {
+  box-shadow: 0 0 16px -2px #538de4;
 }

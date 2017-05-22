@@ -63,6 +63,7 @@ describe('Login Component', () =>{
     const emailInput = wrapper.find('input').first()
     const passInput = wrapper.find('input').last()
     const buttonInput = wrapper.find('button').first()
+
     // console.log(buttonInput);
 
 
