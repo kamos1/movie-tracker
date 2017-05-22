@@ -21866,7 +21866,7 @@
 	'use strict';
 	
 	exports.__esModule = true;
-	exports.connect = exports.connectAdvanced = exports.createProvider = exports.Provider = undefined;
+	exports.connect = exports.connectAdvanced = exports.Provider = undefined;
 	
 	var _Provider = __webpack_require__(184);
 	
@@ -21883,7 +21883,6 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	exports.Provider = _Provider2.default;
-	exports.createProvider = _Provider.createProvider;
 	exports.connectAdvanced = _connectAdvanced2.default;
 	exports.connect = _connect2.default;
 
@@ -21894,7 +21893,7 @@
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 	
 	exports.__esModule = true;
-	exports.createProvider = createProvider;
+	exports.default = undefined;
 	
 	var _react = __webpack_require__(2);
 	
@@ -21926,58 +21925,53 @@
 	  (0, _warning2.default)('<Provider> does not support changing `store` on the fly. ' + 'It is most likely that you see this error because you updated to ' + 'Redux 2.x and React Redux 2.x which no longer hot reload reducers ' + 'automatically. See https://github.com/reactjs/react-redux/releases/' + 'tag/v2.0.0 for the migration instructions.');
 	}
 	
-	function createProvider() {
-	  var _Provider$childContex;
+	var Provider = function (_Component) {
+	  _inherits(Provider, _Component);
 	
-	  var storeKey = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'store';
-	  var subKey = arguments[1];
+	  Provider.prototype.getChildContext = function getChildContext() {
+	    return { store: this.store, storeSubscription: null };
+	  };
 	
-	  var subscriptionKey = subKey || storeKey + 'Subscription';
+	  function Provider(props, context) {
+	    _classCallCheck(this, Provider);
 	
-	  var Provider = function (_Component) {
-	    _inherits(Provider, _Component);
+	    var _this = _possibleConstructorReturn(this, _Component.call(this, props, context));
 	
-	    Provider.prototype.getChildContext = function getChildContext() {
-	      var _ref;
-	
-	      return _ref = {}, _ref[storeKey] = this[storeKey], _ref[subscriptionKey] = null, _ref;
-	    };
-	
-	    function Provider(props, context) {
-	      _classCallCheck(this, Provider);
-	
-	      var _this = _possibleConstructorReturn(this, _Component.call(this, props, context));
-	
-	      _this[storeKey] = props.store;
-	      return _this;
-	    }
-	
-	    Provider.prototype.render = function render() {
-	      return _react.Children.only(this.props.children);
-	    };
-	
-	    return Provider;
-	  }(_react.Component);
-	
-	  if (process.env.NODE_ENV !== 'production') {
-	    Provider.prototype.componentWillReceiveProps = function (nextProps) {
-	      if (this[storeKey] !== nextProps.store) {
-	        warnAboutReceivingStore();
-	      }
-	    };
+	    _this.store = props.store;
+	    return _this;
 	  }
 	
-	  Provider.propTypes = {
-	    store: _PropTypes.storeShape.isRequired,
-	    children: _propTypes2.default.element.isRequired
+	  Provider.prototype.render = function render() {
+	    return _react.Children.only(this.props.children);
 	  };
-	  Provider.childContextTypes = (_Provider$childContex = {}, _Provider$childContex[storeKey] = _PropTypes.storeShape.isRequired, _Provider$childContex[subscriptionKey] = _PropTypes.subscriptionShape, _Provider$childContex);
-	  Provider.displayName = 'Provider';
 	
 	  return Provider;
+	}(_react.Component);
+	
+	exports.default = Provider;
+	
+	
+	if (process.env.NODE_ENV !== 'production') {
+	  Provider.prototype.componentWillReceiveProps = function (nextProps) {
+	    var store = this.store;
+	    var nextStore = nextProps.store;
+	
+	
+	    if (store !== nextStore) {
+	      warnAboutReceivingStore();
+	    }
+	  };
 	}
 	
-	exports.default = createProvider();
+	Provider.propTypes = {
+	  store: _PropTypes.storeShape.isRequired,
+	  children: _propTypes2.default.element.isRequired
+	};
+	Provider.childContextTypes = {
+	  store: _PropTypes.storeShape.isRequired,
+	  storeSubscription: _PropTypes.subscriptionShape
+	};
+	Provider.displayName = 'Provider';
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
@@ -27724,10 +27718,11 @@
 	      favorites = props.favorites,
 	      movies = props.movies;
 	
+	  var cssClass = setClass(title, favorites);
 	
 	  return _react2.default.createElement(
 	    "div",
-	    { className: "card-box" },
+	    { className: "card-box " + cssClass },
 	    _react2.default.createElement("img", { src: poster_path }),
 	    _react2.default.createElement(
 	      "h2",
@@ -27762,7 +27757,7 @@
 	  if (!Object.keys(user).length) {
 	    return _react2.default.createElement(
 	      "button",
-	      { className: "fav-btn",
+	      { className: "fav-btn-add",
 	        onClick: function onClick() {
 	          history.replace('/signup');
 	        } },
@@ -27774,14 +27769,29 @@
 	      ),
 	      " to favorites"
 	    );
+	  } else if (Object.keys(favorites).includes(title)) {
+	    return _react2.default.createElement(
+	      "button",
+	      { className: "fav-btn-remove",
+	        onClick: function onClick() {
+	          favoritesClick(user, history, handleFavorites, handleRemove, favorites, title, movies);
+	        } },
+	      "Remove ",
+	      _react2.default.createElement(
+	        "span",
+	        { className: "title-btn" },
+	        title
+	      ),
+	      " from favorites"
+	    );
 	  }
 	  return _react2.default.createElement(
 	    "button",
-	    { className: "fav-btn",
+	    { className: "fav-btn-add",
 	      onClick: function onClick() {
 	        favoritesClick(user, history, handleFavorites, handleRemove, favorites, title, movies);
 	      } },
-	    "add ",
+	    "Add ",
 	    _react2.default.createElement(
 	      "span",
 	      { className: "title-btn" },
@@ -27794,7 +27804,8 @@
 	var favoritesClick = function favoritesClick(user, history, handleFavorites, handleRemove, favorites, title, movies) {
 	  var userArray = Object.keys(user);
 	  var favKeys = Object.keys(favorites);
-	  console.log(user);
+	  console.log(Object.keys(favorites));
+	  console.log(title);
 	
 	  var postNewFavorite = {
 	    movie_id: movies[title].movie_id,
@@ -27830,6 +27841,14 @@
 	      return resp.json();
 	    });
 	    handleFavorites(movies[title]);
+	  }
+	};
+	
+	var setClass = function setClass(title, favorites) {
+	  if (Object.keys(favorites).includes(title)) {
+	    return 'select-favorite';
+	  } else {
+	    return undefined;
 	  }
 	};
 

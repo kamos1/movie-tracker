@@ -15,7 +15,7 @@ const mockStore = configureMockStore()({
   movies: {},
   user: {},
   favorites: {},
-  history: {}
+  history: {},
 });
 
 const setup = () => {
@@ -25,7 +25,7 @@ const setup = () => {
   const Component = Container.find(CardHolder);
   return {
     Container,
-    Component
+    Component,
   };
 };
 
