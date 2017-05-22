@@ -6,3 +6,14 @@
   flex-direction: column;
   width: 33.3333%;
 }
+
+.selected{
+  background-color: rgba(51, 187, 150, 0.44);
+}
+
+
+
+
+
+
+}
