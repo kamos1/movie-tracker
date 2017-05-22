@@ -8,7 +8,7 @@ class CreateUser extends Component {
       name: '',
       email: '',
       password: '',
-      
+
     };
   }
 
@@ -40,7 +40,7 @@ class CreateUser extends Component {
 
   render() {
     return (
-      <form>
+      <form id='create-user-form'>
         <input
           type='text'
           onChange={e => this.setState({ name: e.target.value })}

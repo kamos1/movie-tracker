@@ -64,7 +64,7 @@ export default class Login extends Component {
 
   render() {
     return (
-      <form>
+      <form id='login-form'>
         <input
           type='text'
           onChange={e => this.setState({ email: e.target.value })}

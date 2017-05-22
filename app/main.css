@@ -1,6 +1,11 @@
+html,
+body {
+  background-color: #525252;
+}
 
 #main h1 {
-  background-color: green;
+  color: white;
+  letter-spacing: 1.5px;
 }
 
 #main {
@@ -8,7 +13,7 @@
 }
 
 .card-holder {
-  background-color: rgba(212, 212, 212, 0.3);
+  background-color: #909090;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -16,17 +21,18 @@
 }
 
 .card-box {
-  box-shadow: 0 0 20px -2px #545454;
+  box-shadow: 0 0 20px -2px #2b2b2b;
   border-radius: 3px;
   margin-right: 5px;
   margin-left: 5px;
   margin-top: 10px;
   margin-bottom: 10px;
   width: 250px;
+  background-color: #f1f1f1;
 }
 
 .card-box:hover {
-  background-color: #e0fcff;
+  background-color: #cddfe2;
 }
 
 .select-favorite{
@@ -92,4 +98,48 @@
 
 .fav-btn-remove:hover {
   box-shadow: 0 0 16px -2px #538de4;
+}
+
+.nav-bar {
+  display: flex;
+  justify-content: space-around;
+}
+
+.nav-link {
+  background-color: #272727;
+  padding: 5px 15px;
+  margin-top: 5px;
+  border-radius: 5px;
+}
+
+.nav-link:hover {
+  background-color: #828282;
+}
+
+.nav-link:visited {
+  color: #cddfe2;
+}
+
+#login-form {
+  width: 50%;
+  display: flex;
+  justify-content: space-around;
+  margin: auto;
+}
+
+#login-form input,
+#create-user-form input {
+  border-radius: 5px;
+}
+
+#login-form button,
+#create-user-form button {
+  border-radius: 5px;
+}
+
+#create-user-form {
+  display: flex;
+  margin: auto;
+  width: 60%;
+  justify-content: space-around;
 }
