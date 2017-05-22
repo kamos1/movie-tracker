@@ -58,12 +58,12 @@ describe('Login Component', () =>{
 
     let mockFn = jest.fn()
     let mockEvent = jest.fn()
-    const wrapper = shallow(<Login handleSubmit={mockFn}/>)
+    const wrapper = shallow(<Login onClick={mockFn}/>)
 
     const emailInput = wrapper.find('input').first()
     const passInput = wrapper.find('input').last()
     const buttonInput = wrapper.find('button').first()
-    console.log(buttonInput);
+    // console.log(buttonInput);
 
 
     emailInput.simulate('change', {target: {value: 'chris.bandrowsky@email.com'}} )
@@ -73,6 +73,17 @@ describe('Login Component', () =>{
     expect(wrapper.state()).toEqual({email: 'chris.bandrowsky@email.com', password: 'password', id: ''})
 
     buttonInput.simulate('click', { preventDefault() {} })
+
+    // fetchMock.get('/api/users', {
+    //   status : 200,
+    //   body: {'chris.bandrowsky@email.com': {email: 'chrisbandrowsky@email.com', password: 'password', id: '1'}}
+    // })
+    //
+    // fetchMock.get('*', {
+    //   status : 200
+    // })
+
+    expect(wrapper.state()).toEqual({email: '', password: '', id: ''})
 
     expect(mockFn).toHaveBeenCalledTimes(1)
   })
