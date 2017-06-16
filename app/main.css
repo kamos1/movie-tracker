@@ -1,6 +1,6 @@
-html,
 body {
   background-color: #525252;
+  font-family: sans-serif;
 }
 
 #main h1 {
@@ -23,11 +23,8 @@ body {
 .card-box {
   box-shadow: 0 0 20px -2px #2b2b2b;
   border-radius: 3px;
-  margin-right: 5px;
-  margin-left: 5px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  width: 250px;
+  margin: 10px 5px;
+  width: 280px;
   background-color: #f1f1f1;
 }
 
@@ -41,29 +38,23 @@ body {
 
 .card-box img {
   height: 300px;
-  margin-right: auto;
-  margin-left: auto;
-  margin-top: 5px;
+  margin-top: 20px;
 }
 
 .movie-details {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   width: 90%;
-  height: 200px;
-  margin-right: auto;
-  margin-left: auto;
+  height: 240px;
+  margin: 0 auto;
 }
 
 .movie-title {
-  font-family: 'Crimson Text', serif;
-  height: 45px;
+  font-family: sans-serif;
+  /*height: 45px;*/
 }
 
 .movie-details p {
   font-size: 14px;
-  font-family: 'Alegreya', serif;
+  font-family: sans-serif;
 }
 
 .fav-btn-add {

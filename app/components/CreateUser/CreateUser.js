@@ -12,19 +12,16 @@ class CreateUser extends Component {
     };
   }
 
-  verifyUser(obj) {
-
-    fetch('/api/users',{
+  verifyUser() {
+    fetch('/api/users', {
       method: 'GET',
     })
       .then(resp => resp.json())
-      .then(userData => {
-        let match = userData.data.find((user) =>{
-          return user.email === this.state.email
-        })
+      .then((userData) => {
+        const match = userData.data.find(user => user.email === this.state.email);
 
-        if (match){
-          alert('Email has already been used')
+        if (match) {
+          alert('Email has already been used');
         } else {
           this.props.handleCreateUser(this.state);
           fetch('/api/users/new', {
@@ -35,7 +32,7 @@ class CreateUser extends Component {
           .catch('error posting to api');
           this.props.history.replace('/login');
         }
-      })
+      });
   }
 
   render() {

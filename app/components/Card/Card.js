@@ -4,7 +4,7 @@ import React from 'react';
 export const Card = (props) => {
   const { title, overview, poster_path, user, history,
           handleFavorites, handleRemove, favorites, movies } = props;
-  let cssClass = setClass(title, favorites);
+  const cssClass = setClass(title, favorites);
 
   return (
     <div className= {`card-box ${cssClass}`}>
@@ -27,11 +27,11 @@ const buttonDisplay = (props) => {
       <button className="fav-btn-add"
               onClick={ () => { history.replace('/signup'); } }>add <span className="title-btn">{ title }</span> to favorites</button>
     );
-  } else if (Object.keys(favorites).includes(title)){
+  } else if (Object.keys(favorites).includes(title)) {
     return (
         <button className="fav-btn-remove"
                 onClick={ () => { favoritesClick(user, history, handleFavorites, handleRemove, favorites, title, movies); } }>Remove <span className="title-btn">{ title }</span> from favorites</button>
-              )
+    );
   }
   return (
       <button className="fav-btn-add"
@@ -42,8 +42,8 @@ const buttonDisplay = (props) => {
 const favoritesClick = (user, history, handleFavorites, handleRemove, favorites, title, movies) => {
   const userArray = Object.keys(user);
   const favKeys = Object.keys(favorites);
-  console.log(Object.keys(favorites))
-  console.log(title)
+  console.log(Object.keys(favorites));
+  console.log(title);
 
   const postNewFavorite = {
     movie_id: movies[title].movie_id,
@@ -81,10 +81,9 @@ const favoritesClick = (user, history, handleFavorites, handleRemove, favorites,
   }
 };
 
-const setClass = (title, favorites) =>{
-  if (Object.keys(favorites).includes(title)){
-    return 'select-favorite'
-  } else {
-    return undefined
+const setClass = (title, favorites) => {
+  if (Object.keys(favorites).includes(title)) {
+    return 'select-favorite';
   }
-}
+  return undefined;
+};
